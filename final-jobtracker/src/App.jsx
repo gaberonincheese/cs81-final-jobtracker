@@ -40,7 +40,6 @@ function Jobs() {
   });
 
   const handleInputChange = (event) => {
-    event.preventDefault();
     const {name, value} = event.target;
     
     setJobForm(prevData => ({
@@ -49,8 +48,12 @@ function Jobs() {
     }));
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  }
+
   return (
-    <>
+    <form onSubmit={handleSubmit}>
         <input
           name="companyName"
           value={FormData.companyName}
@@ -77,6 +80,6 @@ function Jobs() {
             <li key={job.id}> {job.id}. Company: {job.name} Role: {job.role} </li>
           ))}
         </ul>
-    </>
+    </form>
   );
 }
