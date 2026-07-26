@@ -24,6 +24,7 @@ function Jobs() {
   let nextId = 0;
   const [jobs, setJobs] = useState([]);
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); 
 
   const [jobForm, setJobForm] = useState({
     companyID: 0,
@@ -44,12 +45,24 @@ function Jobs() {
     event.preventDefault();
 
     setError('');
-
-    if (!jobForm.companyName || !jobForm.companyRole) 
-      {
-        setError("All entries must be filled to submit.");
-        return;
+    
+    if (isSubmitting) {
+      if (!jobForm.companyName || !jobForm.companyRole) {
+        setError("All entries must be filled to submit.");        
+        setIsSubmitting(false);
+      } else {
+        setJobs([{ id: nextId++, name: jobForm.companyName, role: jobForm.companyRole }, ...jobs]);
       }
+    }
+      
+      
+      /* !jobForm.companyName || !jobForm.companyRole) 
+      {
+        setError("All entries must be filled to submit.");        
+        return;
+      } else {
+        setIsSubmitting(true);
+      } */
 
   }
 
@@ -69,20 +82,19 @@ function Jobs() {
           placeholder= 'Role applied for'
         />
         
-        {/* Here, adding the job to the jobs array through setJobs.*/}
+        {/* Printing error. */}
         {error && <div style={{ color: 'red' }}>{error}</div>}
-                
+
+        {/* Here, adding the job to the jobs array through setJobs.*/}
         <button onClick={() => {
-          {!error && setJobs([{ id: nextId++, name: jobForm.companyName, role: jobForm.companyRole }, ...jobs]);
-          {/* Here, making an unordered list of all items in the jobs array.*/}
+          setIsSubmitting(true) }}>Add this job </button>
+
+        {/* Here, making an unordered list of all items in the jobs array.*/}
         <ul>
           {jobs.map(job => (
             <li key={job.id}> {job.id}. Company: {job.name} Role: {job.role} </li>
           ))}
         </ul>
-        }}}>Add this job </button>
-
-     
     </form>
   );
 }
