@@ -23,18 +23,10 @@ export default App
 function Jobs() {
   let nextId = 0;
   const [jobs, setJobs] = useState([]);
-  
-  function handleAddJob() {
-    const newJob = {
-      id: nextId++, 
-      name: jobForm.companyName,
-      role: jobForm.companyRole
-    }
-    
-    setJobs(jobs => [newJob, ...jobs]);
-  }
-  
+  const [error, setError] = useState("");
+
   const [jobForm, setJobForm] = useState({
+    companyID: 0,
     companyName: "",
     companyRole: ""
   });
@@ -50,6 +42,15 @@ function Jobs() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    setError('');
+
+    if (!jobForm.companyName || !jobForm.companyRole) 
+      {
+        setError("All entries must be filled to submit.");
+        return;
+      }
+
   }
 
   return (
@@ -69,17 +70,19 @@ function Jobs() {
         />
         
         {/* Here, adding the job to the jobs array through setJobs.*/}
+        {error && <div style={{ color: 'red' }}>{error}</div>}
+                
         <button onClick={() => {
-          //setJobs([{ id: nextId++, job: jobForm.companyName, role: jobForm.role }, ...jobs]);
-          handleAddJob();
-        }}>Add this job </button>
-
-        {/* Here, making an unordered list of all items in the jobs array.*/}
+          {!error && setJobs([{ id: nextId++, name: jobForm.companyName, role: jobForm.companyRole }, ...jobs]);
+          {/* Here, making an unordered list of all items in the jobs array.*/}
         <ul>
           {jobs.map(job => (
             <li key={job.id}> {job.id}. Company: {job.name} Role: {job.role} </li>
           ))}
         </ul>
+        }}}>Add this job </button>
+
+     
     </form>
   );
 }
