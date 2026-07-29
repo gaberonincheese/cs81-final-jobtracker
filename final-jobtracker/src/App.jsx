@@ -27,25 +27,25 @@ function Jobs() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [filteredJobs, setFilteredJobs] = useState([]);
-  
   const [searchTerm, setSearchTerm] = useState("");
   
+  const [jobForm, setJobForm] = useState({
+    companyName: "",
+    companyRole: ""
+  });
+  
+  // This function allows filtering of the jobs array based on the term a user searches for.
   const searchItems = (searchTerm) => {
     setSearchTerm(searchTerm);
 
-    if (searchTerm !== "") {
+    if (searchTerm !== "" && jobs.length !== 0) {
       setFilteredJobs(jobs.filter(job => { return (job.name.toLowerCase().includes(searchTerm.toLowerCase()) || job.role.toLowerCase().includes(searchTerm.toLowerCase()))}));
     } else {
       setFilteredJobs(jobs);
     }
   }
 
-
-  const [jobForm, setJobForm] = useState({
-    companyName: "",
-    companyRole: ""
-  });
-
+  // This function handles input change for the inputs in the form.
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
@@ -55,6 +55,7 @@ function Jobs() {
     }));
   };
 
+  // This function adds a job to the front of the jobs array using the spread operator.
   const AddJob = () => {
     const job = {
       id: jobs.length === 0 ? 1 : jobs[jobs.length - 1].id + 1,
@@ -64,6 +65,7 @@ function Jobs() {
     setJobs([job, ...jobs]);
   };
 
+  // Form validation.
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -87,14 +89,14 @@ function Jobs() {
           name="companyName"
           value={FormData.companyName}
           onChange={handleInputChange}
-          placeholder='Company name'
+          placeholder='Company?'
         />
 
         <input
           name="companyRole"
           value={FormData.companyRole}
           onChange={handleInputChange}
-          placeholder='Desired role'
+          placeholder='Applied role?'
         />
 
         {/* Here, if user clicks to submit, we do form validation.*/}
@@ -106,10 +108,10 @@ function Jobs() {
       
       <br></br>
 
+      {/* An input that allows user to look for a specific job in the jobs array.*/}
       <p> Searching for a specific job? </p>
       <input
           name="searchJobInput"
-          //value = {searchTerm}
           onChange={(e) => searchItems(e.target.value)}
           placeholder='Search...'
       />
