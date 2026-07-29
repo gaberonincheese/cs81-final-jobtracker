@@ -34,7 +34,7 @@ function Jobs() {
     setSearchTerm(searchTerm);
 
     if (searchTerm !== "") {
-      setFilteredJobs(jobs.filter(job => { return job.name.toLowerCase().includes(searchTerm.toLowerCase())}));
+      setFilteredJobs(jobs.filter(job => { return (job.name.toLowerCase().includes(searchTerm.toLowerCase()) || job.role.toLowerCase().includes(searchTerm.toLowerCase()))}));
     } else {
       setFilteredJobs(jobs);
     }
