@@ -194,11 +194,7 @@
   max-height: fit-content;
   border-radius: 100px;
   background-color: rgb(188, 228, 255);
-
-  &:hover{
-    box-shadow: var(--shadow);
-    
-  }
+  box-shadow: 50px;
 }
 
 .job-tracker {

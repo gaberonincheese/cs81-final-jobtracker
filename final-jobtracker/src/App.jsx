@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 //import { Jobs } from './Jobs';
 
@@ -8,8 +8,7 @@ function App() {
     <div className='App'>
 
       <h1 className='job-heading'> <b> Job Tracker </b> </h1>
-      <p> This is a tracker for jobs. Input the relevant information to add the
-        job listing to the list of applied jobs. </p>
+      <p> This is a tracker for jobs. Keep track of applied jobs by inputting relevant information below. </p>
 
       <br></br>
       <Jobs />
@@ -57,8 +56,10 @@ function Jobs() {
 
   // This function adds a job to the front of the jobs array using the spread operator.
   const AddJob = () => {
+    const nextId = jobs.length > 0 ? Math.max(...jobs.map(job => job.id)) + 1 : 1;
+
     const job = {
-      id: jobs.length === 0 ? 1 : jobs[jobs.length - 1].id + 1,
+      id: nextId,
       name: jobForm.companyName,
       role: jobForm.companyRole
     };
@@ -127,8 +128,5 @@ function Jobs() {
         : jobs.map(job => (<li key={job.id}> {job.id}. Company: {job.name} Role: {job.role} </li>))}
       </ul>
     </div>
-
-
-
   );
 }
