@@ -38,6 +38,7 @@ function Jobs() {
   const [jobForm, setJobForm] = useState({
     companyName: "",
     companyRole: ""
+    
   });
   
   // This function allows filtering of the jobs array based on the term a user searches for.
@@ -50,6 +51,11 @@ function Jobs() {
       setFilteredJobs(jobs);
     }
   }
+
+  const deleteJob = (id) => {
+    //console.log(id);
+    setJobs(jobs.filter((job) => job.id !== id));
+  };
 
   // This function handles input change for the inputs in the form.
   const handleInputChange = (event) => {
@@ -131,8 +137,8 @@ function Jobs() {
 
       {/* Here, making an unordered list of all items in the jobs array.*/}
       <ul className='jobs-map'>
-        {searchTerm.length >= 1 ? filteredJobs.map(job => (<li key={job.id}> {job.id}. Company: {job.name} Role: {job.role} </li>)) 
-        : jobs.map(job => (<li key={job.id}> {job.id}. Company: {job.name} Role: {job.role} </li>))}
+        {searchTerm.length >= 1 ? filteredJobs.map(job => (<li key={job.id}> Company: {job.name} Role: {job.role} <button onClick={() => deleteJob(job.id)}> x </button> </li>)) 
+        : jobs.map(job => (<li key={job.id}> Company: {job.name} Role: {job.role} <button onClick={() => deleteJob(job.id)}> x </button> </li>))}
       </ul>
     </div>
   );
