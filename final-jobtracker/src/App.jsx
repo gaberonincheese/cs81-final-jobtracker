@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
-//import { Jobs } from './Jobs';
+import { getItem, setItem } from './utils/localStorage';
 
 function App() {
 
@@ -21,8 +21,15 @@ export default App
 
 
 function Jobs() {
-  //let nextId = 0;
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState(() => {
+    const item = getItem('jobs');
+    return item || [];
+  });
+
+  useEffect(() => {
+    setItem('jobs', jobs);
+  }, [jobs]);
+
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [filteredJobs, setFilteredJobs] = useState([]);
@@ -124,7 +131,7 @@ function Jobs() {
 
       {/* Here, making an unordered list of all items in the jobs array.*/}
       <ul className='jobs-map'>
-        {searchTerm.length > 1 ? filteredJobs.map(job => (<li key={job.id}> {job.id}. Company: {job.name} Role: {job.role} </li>)) 
+        {searchTerm.length >= 1 ? filteredJobs.map(job => (<li key={job.id}> {job.id}. Company: {job.name} Role: {job.role} </li>)) 
         : jobs.map(job => (<li key={job.id}> {job.id}. Company: {job.name} Role: {job.role} </li>))}
       </ul>
     </div>
