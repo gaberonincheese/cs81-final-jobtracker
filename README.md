@@ -1,25 +1,16 @@
-# cs81-final-jobtracker
+# React + Vite
 
-# Project summary
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-A simple job tracker that takes a company name and applied role and adds them to an array of jobs. 
+Currently, two official plugins are available:
 
-# Key features and functionality
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-Two inputs to take in a company name and applied role. A search bar in order to filter jobs. A delete button to delete individual jobs in the array. Saves data to local storage so it can be accessed again. Form validation to ensure both inputs have been given values before submitting to jobs array.
+## React Compiler
 
-# Technologies used
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- Native React
-- Vanilla JS
-- CSS
-- Visual Studio Code
-- GitHub Desktop
-- Git
-- Node.js
+## Expanding the ESLint configuration
 
-# Instructions for use
-
-Add the company and applied role to the list of jobs using the add button. If a specific job is wanted, use the search bar to find it. Jobs already in the array can be deleted by interacting with the 'x' button next to each job.
-
-
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
