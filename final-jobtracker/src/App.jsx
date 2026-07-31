@@ -19,13 +19,15 @@ function App() {
 
 export default App
 
-
 function Jobs() {
+  
+  // Getting any saved jobs and returning either the jobs array or an empty array.
   const [jobs, setJobs] = useState(() => {
     const item = getItem('jobs');
     return item || [];
   });
 
+  // Use effect that changes the saved item every time the jobs array is changed.
   useEffect(() => {
     setItem('jobs', jobs);
   }, [jobs]);
@@ -35,6 +37,7 @@ function Jobs() {
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   
+  // useState to create a job form.
   const [jobForm, setJobForm] = useState({
     companyName: "",
     companyRole: "",
@@ -95,6 +98,7 @@ function Jobs() {
     }
   }
 
+  // This function prints all jobs in passed in array.
   const printJobs = (jobArray) => {
     return jobArray.map(job => 
       (<li key={job.id}> Company: {job.name} Role: {job.role} <button onClick={() => deleteJob(job.id)}> x </button> </li>
@@ -123,7 +127,7 @@ function Jobs() {
         <button onClick={() => { setIsSubmitting(true) }}> Add this job </button>
 
         {/* Print the error. */}
-        {error && <div style={{ color: 'rgb(221, 109, 57)', paddingTop: '20px' }}>{error}</div>}
+        {error && <div style={{ color: 'rgb(235, 82, 11)', paddingTop: '20px' }}>{error}</div>}
       </form>
       
       <br></br>
@@ -136,9 +140,7 @@ function Jobs() {
           placeholder='Search...'
       />
       
-
-      <br></br>
-      <br></br>
+      <br></br> <br></br>
       <p> <b> Jobs applied to: </b> </p>
 
       {/* Here, making an unordered list of all items in the jobs array.*/}
