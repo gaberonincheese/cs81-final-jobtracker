@@ -2,7 +2,7 @@
 https://gaberonincheese.github.io/cs81-final-jobtracker/
 
 # Project summary
-A simple job tracker that takes a company name and applied role and adds them to an array of jobs.
+A simple job tracker that takes a company name, applied role, and salary then adds them to an array of jobs.
 
 # Key features and functionality
 Three inputs to take in a company name, applied role, and salary. A search bar in order to filter jobs. A delete button to delete individual jobs in the array. Saves data to local storage so it can be accessed again. Form validation to ensure both inputs have been given values + the salary input is a number before submitting to jobs array.
