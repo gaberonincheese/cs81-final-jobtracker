@@ -37,8 +37,7 @@ function Jobs() {
   
   const [jobForm, setJobForm] = useState({
     companyName: "",
-    companyRole: ""
-    
+    companyRole: "",
   });
   
   // This function allows filtering of the jobs array based on the term a user searches for.
@@ -52,6 +51,7 @@ function Jobs() {
     }
   }
 
+  // This function takes the job's ID and filters out the relevant job. 
   const deleteJob = (id) => {
     //console.log(id);
     setJobs(jobs.filter((job) => job.id !== id));
@@ -90,11 +90,16 @@ function Jobs() {
         setError("All entries must be filled to submit.");
         setIsSubmitting(false);
       } else {
-        //setJobs([{ , name: jobForm.companyName, role: jobForm.companyRole }, ...jobs]);
         AddJob();
       }
     }
   }
+
+  const printJobs = (jobArray) => {
+    return jobArray.map(job => 
+      (<li key={job.id}> Company: {job.name} Role: {job.role} <button onClick={() => deleteJob(job.id)}> x </button> </li>
+      ));
+  };
 
   return (
     <div>
@@ -105,7 +110,7 @@ function Jobs() {
           onChange={handleInputChange}
           placeholder='Company?'
         />
-
+      
         <input
           name="companyRole"
           value={FormData.companyRole}
@@ -114,10 +119,11 @@ function Jobs() {
         />
 
         {/* Here, if user clicks to submit, we do form validation.*/}
-        <button className="add-job-button" onClick={() => { setIsSubmitting(true) }}> Add this job </button>
+        <br></br>
+        <button onClick={() => { setIsSubmitting(true) }}> Add this job </button>
 
         {/* Print the error. */}
-        {error && <div style={{ color: 'red', paddingTop: '20px' }}>{error}</div>}
+        {error && <div style={{ color: 'rgb(221, 109, 57)', paddingTop: '20px' }}>{error}</div>}
       </form>
       
       <br></br>
@@ -137,8 +143,7 @@ function Jobs() {
 
       {/* Here, making an unordered list of all items in the jobs array.*/}
       <ul className='jobs-map'>
-        {searchTerm.length >= 1 ? filteredJobs.map(job => (<li key={job.id}> Company: {job.name} Role: {job.role} <button onClick={() => deleteJob(job.id)}> x </button> </li>)) 
-        : jobs.map(job => (<li key={job.id}> Company: {job.name} Role: {job.role} <button onClick={() => deleteJob(job.id)}> x </button> </li>))}
+        {searchTerm.length >= 1 ? printJobs(filteredJobs) : printJobs(jobs)} 
       </ul>
     </div>
   );
