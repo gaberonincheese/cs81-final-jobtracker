@@ -41,6 +41,7 @@ function Jobs() {
   const [jobForm, setJobForm] = useState({
     companyName: "",
     companyRole: "",
+    companySalary: 0
   });
   
   // This function allows filtering of the jobs array based on the term a user searches for.
@@ -77,7 +78,8 @@ function Jobs() {
     const job = {
       id: nextId,
       name: jobForm.companyName,
-      role: jobForm.companyRole
+      role: jobForm.companyRole,
+      salary: jobForm.companySalary
     };
     setJobs([job, ...jobs]);
   };
@@ -92,6 +94,9 @@ function Jobs() {
       if (!jobForm.companyName || !jobForm.companyRole) {
         setError("All entries must be filled to submit.");
         setIsSubmitting(false);
+      } else if (isNaN(Number(jobForm.companySalary))) {
+          setError("Please enter a number for the salary.");
+          setIsSubmitting(false);
       } else {
         AddJob();
       }
@@ -101,7 +106,7 @@ function Jobs() {
   // This function prints all jobs in passed in array.
   const printJobs = (jobArray) => {
     return jobArray.map(job => 
-      (<li key={job.id}> Company: {job.name} Role: {job.role} <button onClick={() => deleteJob(job.id)}> x </button> </li>
+      (<li key={job.id}> Company: {job.name} Role: {job.role} Salary: ${job.salary} <button onClick={() => deleteJob(job.id)}> x </button> </li>
       ));
   };
 
@@ -120,6 +125,13 @@ function Jobs() {
           value={FormData.companyRole}
           onChange={handleInputChange}
           placeholder='Applied role?'
+        />
+
+        <input
+          name="companySalary"
+          value={FormData.companySalary}
+          onChange={handleInputChange}
+          placeholder='Position salary?'
         />
 
         {/* Here, if user clicks to submit, we do form validation.*/}
